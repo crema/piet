@@ -23,7 +23,18 @@ module Piet
     end
 
     def mimetype(path)
-      IO.popen(['file', '--brief', '--mime-type', path], in: :close, err: :close){|io| io.read.chomp.sub(/image\//, '')}
+      case File.extname(path).downcase
+      when '.jpg', '.jpeg'
+        'jpeg'
+      when '.png'
+        'png'
+      when '.gif'
+        'gif'
+      when '.bmp'
+        'bmp'
+      else
+        IO.popen(['file', '--brief', '--mime-type', path], in: :close, err: :close){|io| io.read.chomp.sub(/image\//, '')}
+      end
     end
 
     def optimize_png(path, opts)
