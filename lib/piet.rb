@@ -30,6 +30,8 @@ module Piet
         'png'
       when '.gif'
         'gif'
+      when '.bmp'
+        'bmp'
       else
         IO.popen(['file', '--brief', '--mime-type', path], in: :close, err: :close).read.chomp.sub(/image\//, '')
       end
